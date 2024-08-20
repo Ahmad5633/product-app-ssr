@@ -2,7 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
-  const { id } = context.query; // Use context.query to get URL query parameters
+  const { id } = context.query; 
 
   try {
     const res = await axios.get(
@@ -13,7 +13,7 @@ export async function getServerSideProps(context) {
     return { props: { product } };
   } catch (error) {
     console.error("Error fetching product:", error);
-    return { props: { product: null } }; // Handle the error case
+    return { props: { product: null } };
   }
 }
 
@@ -21,13 +21,13 @@ export default function ProductDetail({ product }) {
   const router = useRouter();
 
   if (!product) {
-    return <p>Product not found.</p>; // Handle case when product is null
+    return <p>Product not found.</p>;
   }
 
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/products/${product.id}` // Use the correct field for the ID
+        `${process.env.NEXT_PUBLIC_API_URL}/api/products/${product.id}`
       );
       router.push("/");
     } catch (error) {
